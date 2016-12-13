@@ -135,7 +135,10 @@ abstract class WP_Customize_Postmeta_Controller {
 			$post_types = $this->post_types;
 		}
 
+
 		foreach ( $post_types as $post_type ) {
+			error_log($post_type);
+			error_log(print_r($this->meta_key,true));
 			$setting_args = array(
 				'sanitize_callback' => $this->sanitize_callback,
 				'sanitize_js_callback' => $this->sanitize_js_callback,

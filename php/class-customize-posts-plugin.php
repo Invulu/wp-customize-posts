@@ -42,6 +42,13 @@ class Customize_Posts_Plugin {
 	public $featured_image_controller;
 
 	/**
+	 * Custom post meta controller.
+	 *
+	 * @var WP_Customize_Custom_Post_Meta_Text_Controller
+	 */
+	public $custom_post_meta_text_controller;
+
+	/**
 	 * Plugin constructor.
 	 *
 	 * @access public
@@ -173,8 +180,10 @@ class Customize_Posts_Plugin {
 			require_once dirname( __FILE__ ) . '/class-wp-customize-postmeta-controller.php';
 			require_once dirname( __FILE__ ) . '/class-wp-customize-page-template-controller.php';
 			require_once dirname( __FILE__ ) . '/class-wp-customize-featured-image-controller.php';
+			require_once dirname( __FILE__ ) . '/class-wp-customize-custom-post-meta-text-controller.php';
 			$this->page_template_controller = new WP_Customize_Page_Template_Controller();
 			$this->featured_image_controller = new WP_Customize_Featured_Image_Controller();
+			$this->custom_post_meta_text_controller = new WP_Customize_Custom_Post_Meta_Text_Controller();
 		}
 
 		return $components;
@@ -345,6 +354,19 @@ class Customize_Posts_Plugin {
 		$handle = 'edit-post-preview-customize';
 		$src = plugins_url( 'js/edit-post-preview-customize' . $suffix, dirname( __FILE__ ) );
 		$deps = array( 'customize-controls' );
+		$in_footer = 1;
+		$wp_scripts->add( $handle, $src, $deps, $this->version, $in_footer );
+
+		// Custom post meta text.
+		$handle = 'customize-custom-post-meta-text';
+		$src = plugins_url( 'js/customize-custom-post-meta-text' . $suffix, dirname( __FILE__ ) );
+		$deps = array( 'customize-controls', 'customize-posts' );
+		$in_footer = 1;
+		$wp_scripts->add( $handle, $src, $deps, $this->version, $in_footer );
+
+		$handle = 'edit-post-preview-admin-custom-post-meta';
+		$src = plugins_url( 'js/edit-post-preview-admin-custom-post-meta-text' . $suffix, dirname( __FILE__ ) );
+		$deps = array( 'edit-post-preview-admin-custom-post-meta' );
 		$in_footer = 1;
 		$wp_scripts->add( $handle, $src, $deps, $this->version, $in_footer );
 
