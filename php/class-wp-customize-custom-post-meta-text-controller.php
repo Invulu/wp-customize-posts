@@ -16,7 +16,7 @@ class WP_Customize_Custom_Post_Meta_Text_Controller extends WP_Customize_Postmet
 	 *
 	 * @var string
 	 */
-	public $meta_key = 'giving_team_title';
+	public $meta_key = 'gpp_team_title';
 
 	/**
 	 * Post type support for the postmeta.
@@ -78,8 +78,6 @@ class WP_Customize_Custom_Post_Meta_Text_Controller extends WP_Customize_Postmet
 	 * @return string $meta_text Text.
 	 */
 	public function sanitize_value( $raw_meta_text ) {
-		error_log('sanitize_value');
-		error_log($raw_meta_text);
 		$meta_text = sanitize_text_field($raw_meta_text);
 		return $meta_text;
 	}
@@ -94,8 +92,6 @@ class WP_Customize_Custom_Post_Meta_Text_Controller extends WP_Customize_Postmet
 	 * @return mixed|WP_Error Sanitized value or WP_Error if invalid valid.
 	 */
 	public function sanitize_setting( $raw_meta_text, WP_Customize_Postmeta_Setting $setting ) {
-		error_log('sanitize_setting');
-		error_log($raw_meta_text);
 		$meta_text = sanitize_text_field($raw_meta_text);
 		return $meta_text;
 	}

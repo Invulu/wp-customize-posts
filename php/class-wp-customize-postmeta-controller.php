@@ -119,6 +119,11 @@ abstract class WP_Customize_Postmeta_Controller {
 	 */
 	public function register_meta( WP_Customize_Posts $posts_component ) {
 
+		error_log($this->meta_key);
+		error_log(print_r($this->post_types,true));
+		error_log(print_r($this->post_type_supports,true));
+		error_log(' ');
+
 		// Short-circuit if theme support is not present.
 		if ( isset( $this->theme_supports ) && ! current_theme_supports( $this->theme_supports ) ) {
 			return 0;
@@ -137,8 +142,6 @@ abstract class WP_Customize_Postmeta_Controller {
 
 
 		foreach ( $post_types as $post_type ) {
-			error_log($post_type);
-			error_log(print_r($this->meta_key,true));
 			$setting_args = array(
 				'sanitize_callback' => $this->sanitize_callback,
 				'sanitize_js_callback' => $this->sanitize_js_callback,

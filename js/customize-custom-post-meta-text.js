@@ -1,15 +1,14 @@
 /* global module, EditPostPreviewCustomize, wp, _ */
 /* exported CustomizeCustomPostMetaText */
-console.log('ccpmt');
+
 var CustomizeCustomPostMetaText = (function( api ) {
 	'use strict';
 
 	var component = {
 		data: {
 			l10n: {
-				controlLabel: ''
-			},
-			defaultPageTemplateChoices: {}
+				default_button_labels: {}
+			}
 		}
 	};
 
@@ -20,6 +19,7 @@ var CustomizeCustomPostMetaText = (function( api ) {
 	 * @return {void}
 	 */
 	component.init = function( configData ) {
+		console.log('a');
 		if ( 'undefined' !== typeof configData ) {
 			_.extend( component.data, configData );
 		}
@@ -53,7 +53,7 @@ var CustomizeCustomPostMetaText = (function( api ) {
 		var supports, control, controlId, settingId, isActiveCallback;
 		supports = api.Posts.data.postTypes[ section.params.post_type ].supports;
 
-		settingId = 'postmeta[' + section.params.post_type + '][' + String( section.params.post_id ) + '][giving_team_title]';
+		settingId = 'postmeta[' + section.params.post_type + '][' + String( section.params.post_id ) + '][gpp_team_title]';
 		controlId = settingId;
 
 		// If in page preview, send the updated page template to the post edit screen when it is changed.
@@ -80,11 +80,8 @@ var CustomizeCustomPostMetaText = (function( api ) {
 				settings: {
 					'default': settingId
 				},
-				field_type: 'select',
-				choices: component.data.defaultPageTemplateChoices,
-				input_attrs: {
-					'data-customize-setting-link': settingId
-				}
+				field_type: 'text',
+				setting_property: 'gpp_team_title'
 			}
 		} );
 

@@ -300,6 +300,9 @@
 			if ( postTypeObj.supports.author ) {
 				section.addAuthorControl();
 			}
+			if ( true ) {
+				section.addCustomPostMetaTextControl();
+			}
 		},
 
 		/**
@@ -816,6 +819,44 @@
 
 			// Register.
 			section.postFieldControls.post_author = control;
+			api.control.add( control.id, control );
+
+			if ( control.notifications ) {
+				control.notifications.add = section.addPostFieldControlNotification;
+				control.notifications.setting_property = control.params.setting_property;
+			}
+			return control;
+		},
+
+		/**
+		 * Add custom post meta text
+		 *
+		 * @returns {wp.customize.Control} Added control.
+		 */
+		addCustomPostMetaTextControl: function() {
+			var section = this, control, setting = api( section.id ), postTypeObj;
+			postTypeObj = api.Posts.data.postTypes[ section.params.post_type ];
+			control = new api.controlConstructor.dynamic( section.id + '[gpp_team_title]', {
+				params: {
+					section: section.id,
+					priority: 200,
+					label: 'Custom Post Meta Text',
+					active: true,
+					settings: {
+						'default': setting.id
+					},
+					field_type: 'text',
+					setting_property: 'gpp_team_title'
+				}
+			} );
+
+			// Override preview trying to de-activate control not present in preview context. See WP Trac #37270.
+			control.active.validate = function() {
+				return true;
+			};
+
+			// Register.
+			section.postFieldControls.gpp_team_title = control;
 			api.control.add( control.id, control );
 
 			if ( control.notifications ) {

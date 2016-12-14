@@ -2,7 +2,7 @@
 (function( $ ) {
 	'use strict';
 
-	var metaKey = 'giving_team_title', inputSelector = '#giving_team_title';
+	var metaKey = 'gpp_team_title', inputSelector = '#gpp_team_title';
 
 	// Handle syncing settings from edit post admin page to Customizer.
 	wp.customize.bind( 'settings-from-edit-post-screen', function( settings ) {

@@ -183,7 +183,11 @@ class Customize_Posts_Plugin {
 			require_once dirname( __FILE__ ) . '/class-wp-customize-custom-post-meta-text-controller.php';
 			$this->page_template_controller = new WP_Customize_Page_Template_Controller();
 			$this->featured_image_controller = new WP_Customize_Featured_Image_Controller();
-			$this->custom_post_meta_text_controller = new WP_Customize_Custom_Post_Meta_Text_Controller();
+			$args = array(
+				'meta_key' => 'gpp_team_title',
+				'post_types' => array( 'team' )
+			);
+			$this->custom_post_meta_text_controller = new WP_Customize_Custom_Post_Meta_Text_Controller( $args );
 		}
 
 		return $components;
@@ -364,9 +368,9 @@ class Customize_Posts_Plugin {
 		$in_footer = 1;
 		$wp_scripts->add( $handle, $src, $deps, $this->version, $in_footer );
 
-		$handle = 'edit-post-preview-admin-custom-post-meta';
+		$handle = 'edit-post-preview-admin-custom-post-meta-text';
 		$src = plugins_url( 'js/edit-post-preview-admin-custom-post-meta-text' . $suffix, dirname( __FILE__ ) );
-		$deps = array( 'edit-post-preview-admin-custom-post-meta' );
+		$deps = array( 'edit-post-preview-admin-custom-post-meta-text' );
 		$in_footer = 1;
 		$wp_scripts->add( $handle, $src, $deps, $this->version, $in_footer );
 
